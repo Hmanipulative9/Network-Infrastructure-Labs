@@ -1,0 +1,202 @@
+Switch#sh 
+Switch#s
+Switch#sho
+Switch#show int
+Switch#show interfaces tr
+Switch#show interfaces trunk 
+Port        Mode         Encapsulation  Status        Native vlan
+Fa0/1       on           802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Fa0/1       1-1005
+
+Port        Vlans allowed and active in management domain
+Fa0/1       1,10
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Fa0/1       1,10
+
+Switch#sh 
+Switch#show vl
+Switch#show vlan 
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/4, Fa0/5, Fa0/6, Fa0/7
+                                                Fa0/8, Fa0/9, Fa0/10, Fa0/11
+                                                Fa0/12, Fa0/13, Fa0/14, Fa0/15
+                                                Fa0/16, Fa0/17, Fa0/18, Fa0/19
+                                                Fa0/20, Fa0/21, Fa0/22, Fa0/23
+                                                Fa0/24, Gig0/1, Gig0/2
+10   it                               active    Fa0/2, Fa0/3
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active    
+
+
+Switch#sh 
+Switch#s
+Switch#sho
+Switch#show int
+Switch#show interfaces tr
+Switch#show interfaces trunk 
+Port        Mode         Encapsulation  Status        Native vlan
+Fa0/1       on           802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Fa0/1       1-1005
+
+Port        Vlans allowed and active in management domain
+Fa0/1       1,10
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Fa0/1       1,10
+
+Switch#sh 
+Switch#show vl
+Switch#show vlan 
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/4, Fa0/5, Fa0/6, Fa0/7
+                                                Fa0/8, Fa0/9, Fa0/10, Fa0/11
+                                                Fa0/12, Fa0/13, Fa0/14, Fa0/15
+                                                Fa0/16, Fa0/17, Fa0/18, Fa0/19
+                                                Fa0/20, Fa0/21, Fa0/22, Fa0/23
+                                                Fa0/24, Gig0/1, Gig0/2
+10   it                               active    Fa0/2, Fa0/3
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active    
+
+
+witch>
+Switch>en
+Switch#sh
+Switch#show i
+Switch#show ip
+Switch#ip r
+Switch#ip rou
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#do sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/1        unassigned      YES unset  up                    up 
+FastEthernet0/2        unassigned      YES unset  up                    up 
+FastEthernet0/3        unassigned      YES unset  down                  down 
+FastEthernet0/4        unassigned      YES unset  down                  down 
+FastEthernet0/5        unassigned      YES unset  down                  down 
+FastEthernet0/6        unassigned      YES unset  down                  down 
+FastEthernet0/7        unassigned      YES unset  down                  down 
+FastEthernet0/8        unassigned      YES unset  down                  down 
+FastEthernet0/9        unassigned      YES unset  down                  down 
+FastEthernet0/10       unassigned      YES unset  down                  down 
+FastEthernet0/11       unassigned      YES unset  down                  down 
+FastEthernet0/12       unassigned      YES unset  down                  down 
+FastEthernet0/13       unassigned      YES unset  down                  down 
+FastEthernet0/14       unassigned      YES unset  down                  down 
+FastEthernet0/15       unassigned      YES unset  down                  down 
+FastEthernet0/16       unassigned      YES unset  down                  down 
+FastEthernet0/17       unassigned      YES unset  down                  down 
+FastEthernet0/18       unassigned      YES unset  down                  down 
+FastEthernet0/19       unassigned      YES unset  down                  down 
+FastEthernet0/20       unassigned      YES unset  down                  down 
+FastEthernet0/21       unassigned      YES unset  down                  down 
+
+Switch(config)#sh dhcp pool
+                ^
+% Invalid input detected at '^' marker.
+	
+Switch(config)#dhcp?
+% Unrecognized command
+Switch(config)#do sh run-conf
+sh run-conf
+      ^
+% Invalid input detected at '^' marker.
+	
+Switch(config)#do show running config
+show running config
+             ^
+% Invalid input detected at '^' marker.
+	
+Switch(config)#do sh vlan br
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/3, Fa0/4, Fa0/5, Fa0/6
+                                                Fa0/7, Fa0/8, Fa0/9, Fa0/10
+                                                Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                Fa0/15, Fa0/16, Fa0/17, Fa0/18
+                                                Fa0/19, Fa0/20, Fa0/21, Fa0/22
+                                                Fa0/23, Fa0/24, Gig0/1, Gig0/2
+10   it                               active    
+20   HR                               active    
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active    
+Switch(config)#do sh int trunk br
+sh int trunk br
+             ^
+% Invalid input detected at '^' marker.
+	
+Switch(config)#do sh 
+Switch(config)#do sh int trunk
+Port        Mode         Encapsulation  Status        Native vlan
+Fa0/1       on           802.1q         trunking      1
+Fa0/2       on           802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Fa0/1       1-1005
+Fa0/2       1-1005
+
+Port        Vlans allowed and active in management domain
+Fa0/1       1,10,20
+Fa0/2       1,10,20
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Fa0/1       1,10,20
+Fa0/2       1,10,20
+
+Switch(config)#do sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/1        unassigned      YES unset  up                    up 
+FastEthernet0/2        unassigned      YES unset  up                    up 
+FastEthernet0/3        unassigned      YES unset  down                  down 
+FastEthernet0/4        unassigned      YES unset  down                  down 
+FastEthernet0/5        unassigned      YES unset  down                  down 
+FastEthernet0/6        unassigned      YES unset  down                  down 
+FastEthernet0/7        unassigned      YES unset  down                  down 
+FastEthernet0/8        unassigned      YES unset  down                  down 
+FastEthernet0/9        unassigned      YES unset  down                  down 
+FastEthernet0/10       unassigned      YES unset  down                  down 
+FastEthernet0/11       unassigned      YES unset  down                  down 
+FastEthernet0/12       unassigned      YES unset  down                  down 
+FastEthernet0/13       unassigned      YES unset  down                  down 
+FastEthernet0/14       unassigned      YES unset  down                  down 
+FastEthernet0/15       unassigned      YES unset  down                  down 
+FastEthernet0/16       unassigned      YES unset  down                  down 
+FastEthernet0/17       unassigned      YES unset  down                  down 
+FastEthernet0/18       unassigned      YES unset  down                  down 
+FastEthernet0/19       unassigned      YES unset  down                  down 
+FastEthernet0/20       unassigned      YES unset  down                  down 
+FastEthernet0/21       unassigned      YES unset  down                  down 
+FastEthernet0/22       unassigned      YES unset  down                  down 
+FastEthernet0/23       unassigned      YES unset  down                  down 
+
+Switch(config)#show ip dhcp binding
+                ^
+% Invalid input detected at '^' marker.
+	
+Switch(config)#do show ip dhcp binding
+IP address       Client-ID/              Lease expiration        Type
+                 Hardware address
+192.168.10.3     0002.1772.8421           --                     Automatic
+192.168.10.2     0001.43EE.698B           --                     Automatic
+172.20.0.2       00E0.F96C.524A           --                     Automatic
+172.20.0.1       00D0.D3D1.9D7E           --                     Automatic
+Switch(config)#
+
+
