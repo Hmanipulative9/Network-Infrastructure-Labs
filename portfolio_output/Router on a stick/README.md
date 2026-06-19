@@ -15,8 +15,7 @@ In a real-world scenario, this configuration is crucial for businesses looking t
 
 *   **VLANs (Virtual Local Area Networks):** Logical segmentation of a Layer 2 network.
 *   **Access Ports:** Assigning switch ports to specific VLANs for end-device connectivity.
-*   **Spanning Tree Protocol (STP) - PVST Mode:** Preventing Layer 2 loops and ensuring network stability.
-*   **Cisco IOS CLI:** Configuration and verification of network devices.
+*   * **Cisco IOS CLI:** Configuration and verification of network devices.
 *   **Network Segmentation:** Designing and implementing isolated network segments.
 *   **Broadcast Domain Management:** Reducing the size of broadcast domains for improved network performance.
 *   **Basic Switch Configuration:** Setting hostname and essential operational parameters.
@@ -144,51 +143,4 @@ Voice VLAN: none
 [...]
 ```
 
-### 3. Verify Spanning Tree Protocol Status
-
-This command shows the active STP instances and their state, confirming that the network is protected from Layer 2 loops.
-
-```cisco
-Switch# show spanning-tree active
-```
-
-**Simulated Successful Output:**
-
-```
-VLAN0001
-  Spanning tree enabled protocol ieee
-  Root ID    Priority    32769
-             Address     000D.BC5A.D1C1
-             This bridge is the root
-             Hello Time   2 sec Max Age 20 sec Forward Delay 15 sec
-
-  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
-             Address     000D.BC5A.D1C1
-             Hello Time   2 sec Max Age 20 sec Forward Delay 15 sec
-             Aging Time  300
-
-Interface           Role Sts Cost      Prio.Nbr Type
-------------------- ---- --- --------- -------- --------------------------------
-Fa0/7               Desg FWD 19        128.7    P2p 
-[...]
-
-VLAN0010
-  Spanning tree enabled protocol ieee
-  Root ID    Priority    32778
-             Address     001B.D45C.D2E2
-             Cost        19         Port      1 (FastEthernet0/1)
-             Hello Time   2 sec Max Age 20 sec Forward Delay 15 sec
-
-  Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
-             Address     000D.BC5A.D1C1
-             Hello Time   2 sec Max Age 20 sec Forward Delay 15 sec
-             Aging Time  300
-
-Interface           Role Sts Cost      Prio.Nbr Type
-------------------- ---- --- --------- -------- --------------------------------
-Fa0/1               Desg FWD 19        128.1    P2p 
-Fa0/2               Desg FWD 19        128.2    P2p 
-[...]
-```
-
-These verification steps ensure that the VLANs are correctly defined, ports are assigned to their respective VLANs, and the spanning-tree protocol is actively preventing loops across the network segments.
+ and the spanning-tree protocol is actively preventing loops across the network segments.
