@@ -4,37 +4,38 @@
 ![Topology](dhcp using switch-topology.png)
 
 ## 📄 Overview
-This document details the configuration of a Cisco Layer 2 access switch, designed to segment a local area network (LAN) into distinct broadcast domains using Virtual Local Area Networks (VLANs). The primary purpose is to enhance network security, improve performance, and simplify network management by logically separating different user groups.
+This document outlines the configuration of a Cisco Layer 2 access switch, designed to provide segmented network connectivity for various departments within an organization. The switch leverages VLANs to logically separate traffic, enhancing security and manageability across different user groups (e.g., IT, HR, and a default segment).
 
-The switch acts as an access layer device, forwarding traffic based on VLAN assignments and trunking aggregated VLAN traffic to an upstream Layer 3 device for inter-VLAN routing. DHCP services are handled by an external server, providing IP addresses to clients within their respective VLANs, facilitating efficient resource allocation and network scalability.
+The architecture facilitates efficient network resource utilization by providing trunk links to an upstream Layer 3 device (likely a router-on-a-stick), which handles inter-VLAN routing and dynamic IP address assignment via DHCP for the segmented networks. This design ensures that user devices receive appropriate network configurations and that traffic between different departmental VLANs is routed securely and effectively.
 
 ## 🛠️ Technical Stack
-*   **Ethernet:** Physical Layer connectivity.
-*   **VLANs (802.1Q):** Logical network segmentation.
-*   **Trunking:** Carrying multiple VLANs over a single physical link.
-*   **DHCP:** Dynamic Host Configuration Protocol for automatic IP address assignment (client-side observed).
+*   **VLANs (IEEE 802.1Q):** For logical network segmentation.
+*   **Trunking:** To carry multiple VLANs over a single link between switches and/or routers.
+*   **DHCP (Dynamic Host Configuration Protocol):** Implied, for automatic IP address assignment by an external server.
 
 ## 📊 Addressing & Topology
-| VLAN ID | VLAN Name | Subnet (Derived from DHCP) | Interfaces (Access)                      | Interfaces (Trunk)    | Purpose / Notes                                        |
-| :------ | :-------- | :------------------------- | :--------------------------------------- | :-------------------- | :----------------------------------------------------- |
-| 1       | default   | N/A                        | Fa0/3-24, Gig0/1-2                       | Fa0/1, Fa0/2          | Default VLAN, likely for general-purpose or management. |
-| 10      | it        | 192.168.10.0/24            | None (active on trunk)                   | Fa0/1, Fa0/2          | Dedicated for IT personnel, ready for port assignment. |
-| 20      | HR        | 172.20.0.0/24              | None (active on trunk)                   | Fa0/1, Fa0/2          | Dedicated for HR personnel, ready for port assignment. |
+The following table details the VLANs, their inferred subnets (managed by an external router), and the interfaces on this switch that are part of these segments or serve as trunk links.
+
+| VLAN ID | VLAN Name | Subnet (Inferred/External) | Interface(s)                              | Role                                   |
+| :------ | :-------- | :------------------------- | :---------------------------------------- | :------------------------------------- |
+| 1       | default   | N/A (Switch Management)    | Fa0/3-24, Gig0/1-2 (Access Ports)         | Native VLAN, Default User/Management   |
+| 10      | it        | 192.168.10.0/24            | (Configured, no active access ports)      | IT Department Segment                  |
+| 20      | HR        | 172.20.0.0/24              | (Configured, no active access ports)      | HR Department Segment                  |
+| N/A     | Trunk     | N/A                        | Fa0/1, Fa0/2                              | Uplink to Router/Other Switches        |
 
 ## ⚙️ Core Configurations
-The following snippets represent the critical commands for the switch's operation:
+Critical configuration snippets to achieve the described network segmentation and connectivity.
 
 **VLAN Creation:**
-Creating VLANs to segment user groups.
 ```cisco
 vlan 10
  name it
 vlan 20
  name HR
 ```
+*   Configures VLANs for departmental segmentation.
 
 **Trunk Port Configuration:**
-Configuring interfaces to carry multiple VLANs to an upstream router or switch, using 802.1Q encapsulation.
 ```cisco
 interface FastEthernet0/1
  switchport mode trunk
@@ -43,21 +44,21 @@ interface FastEthernet0/2
  switchport mode trunk
  switchport trunk encapsulation dot1q
 ```
+*   Configures FastEthernet0/1 and FastEthernet0/2 as 802.1Q trunk ports to carry multiple VLANs.
 
 **Access Port Configuration (Example for VLAN 1):**
-Assigning specific ports to VLAN 1. Note: VLAN 10 and 20 currently show no access ports explicitly assigned in the latest `show vlan` output, but their existence on trunks and DHCP bindings indicate they are active.
 ```cisco
 interface FastEthernet0/3
  switchport mode access
  switchport access vlan 1
-! ... (similar configuration for Fa0/4-24, Gig0/1-2 for VLAN 1)
+! ... (similar configuration for Fa0/4-24, Gig0/1-2)
 ```
+*   Assigns end-device ports to the respective VLANs (e.g., Fa0/3 to VLAN 1).
 
 ## 🧪 Verification
-Standard diagnostic commands to confirm the network state and functionality.
+Standard diagnostic commands to confirm the network state and configuration.
 
 **Verify VLANs and Port Assignments:**
-Check the status of created VLANs and their assigned ports.
 ```cisco
 show vlan brief
 ```
@@ -75,11 +76,10 @@ VLAN Name                             Status    Ports
 1002 fddi-default                     active    
 1003 token-ring-default               active    
 1004 fddinet-default                  active    
-1005 trnet-default                  active    
+1005 trnet-default                    active    
 ```
 
 **Verify Trunk Port Status:**
-Confirm which interfaces are operating as trunks and the VLANs they are carrying.
 ```cisco
 show interfaces trunk
 ```
@@ -101,8 +101,7 @@ Fa0/1       1,10,20
 Fa0/2       1,10,20
 ```
 
-**Verify DHCP Bindings:**
-Review active DHCP leases from clients, indicating successful IP assignment across VLANs.
+**Verify DHCP Bindings (from external DHCP server via switch):**
 ```cisco
 show ip dhcp binding
 ```
