@@ -3,58 +3,58 @@
 ## 🖼️ Network Topology
 ![Topology](dhcp-using-switch-topology.png)
 
-## 📄 Overview:
-This configuration deploys a multi-VLAN Layer 2 network segmentation with integrated DHCP services.
+## 📄 Overview
+Provides Layer 2 network segmentation and automated IP address assignment for connected devices across multiple VLANs.
 
-## 🛠️ Core Capabilities:
-*   VLAN Segmentation (802.1Q)
-*   Static Trunking
-*   DHCP Server (implied by bindings)
+## 🎯 Project Objective
+Establish distinct logical network segments for departmental separation and streamline IP address management for network clients.
 
-## 📊 Addressing Matrix:
+## 💡 Skills Demonstrated
+- VLAN Configuration
+- Trunking (IEEE 802.1Q)
+- DHCP Services
+- Layer 2 Switching
+
+## 🛠️ Core Capabilities
+- VLAN
+- IEEE 802.1Q
+- DHCP
+
+## 📊 Addressing Matrix
 
 | Device / Interface | IP Address | VLAN / Role |
-|--------------------|------------|-------------|
-| **Switch** (Management) | - | Layer 2 Switch |
-| FastEthernet0/1    | -          | Trunk (VLANs 1, 10, 20) |
-| FastEthernet0/2    | -          | Trunk (VLANs 1, 10, 20) |
-| FastEthernet0/3-24, Gig0/1-2 | -          | Access (VLAN 1) |
-| VLAN 1 (default)   | -          | Default Data Network |
-| VLAN 10 (it)       | -          | IT Services Network |
-| VLAN 20 (HR)       | -          | HR Services Network |
+|-------------------|-----------|------------|
+| Switch / Fa0/1 | unassigned | Trunk (802.1q), Native 1, Active VLANs 1,10,20 |
+| Switch / Fa0/2 | unassigned | Trunk (802.1q), Native 1, Active VLANs 1,10,20 |
+| Switch / Fa0/3-Fa0/24, Gig0/1-Gig0/2 | unassigned | Access (VLAN 1) |
+| Client 1 | 192.168.10.2 | VLAN 10 (it) |
+| Client 2 | 192.168.10.3 | VLAN 10 (it) |
+| Client 3 | 172.20.0.1 | VLAN 20 (HR) |
+| Client 4 | 172.20.0.2 | VLAN 20 (HR) |
 
-## ⚙️ Infrastructure Blueprint (CLI):
+## ⚙️ Infrastructure Blueprint
 
 ```cisco
+! VLAN Definitions
 vlan 10
  name it
 vlan 20
  name HR
 !
+! Trunk Port Configuration
 interface FastEthernet0/1
  switchport mode trunk
- switchport trunk encapsulation dot1q
- switchport trunk allowed vlan 1,10,20
 !
 interface FastEthernet0/2
  switchport mode trunk
- switchport trunk encapsulation dot1q
- switchport trunk allowed vlan 1,10,20
 !
-interface range FastEthernet0/3-24, GigabitEthernet0/1-2
- switchport mode access
+! Access Port Configuration (Sample)
+interface FastEthernet0/3
  switchport access vlan 1
+ switchport mode access
+!
 ```
 
-## 🧪 Verification Metrics:
-
-**Routing Table:**
-This device is configured as a Layer 2 switch with no IP routing enabled or Layer 3 interfaces.
-
-```cisco
-Switch#show ip route
-% IP routing not enabled
-```
-
-**End-to-End ICMP Ping Trace:**
-This device is configured as a Layer 2 switch and does not have an IP address for management or any Layer 3 interface. Consequently, it cannot originate or terminate ICMP ping requests to demonstrate end-to-end Layer 3 reachability from its own CLI. Layer 3 verification would need to be performed from connected end devices or a connected router.
+## 🧪 Verification Metrics
+- Routing table output: Not available from provided configuration.
+- ICMP ping trace: Not available from provided configuration.
